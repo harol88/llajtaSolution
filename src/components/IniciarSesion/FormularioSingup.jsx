@@ -56,7 +56,7 @@ export default function Login() {
   // Label for Checkbox
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   //-------------------------------------------------------------------------------------------------
- 
+
 
   // Validation for onBlur Username
   const validarUsername = () => {
@@ -75,7 +75,11 @@ export default function Login() {
   };
 
   useEffect(() => {
-    validarUsername();
+    if (usernameInput) {
+      validarUsername();
+    } else {
+      setUsernameError(false);
+    }
   }, [usernameInput]);
 
   const isEmailGmail = (email) =>
@@ -111,7 +115,12 @@ export default function Login() {
   }
 
   useEffect(() => {
-    validarEmail();
+    if (emailInput) {
+      validarEmail();
+    } else {
+      setEmailError(false);
+    }
+
   }, [emailInput]);
 
 
@@ -163,6 +172,8 @@ export default function Login() {
     setPasswordErrorMax(false);
     setPasswordError(false);
     setPasswordErrorMin(false);
+    setFormValidPassword("")
+    return;
   }
   //-------------------------------------------------------------------------------------------------
   //handle Submittion
@@ -180,13 +191,47 @@ export default function Login() {
     if (!emailInput && !passwordInput) {
       if (!usernameInput) {
         setUsernameError(true);
-      }
-      setPasswordError(true);
-      setEmailError(true);
-      setFormValid("Por favor, completa todos los campos obligatorios");
-      return;
+        setPasswordError(true);
+        setEmailError(true);
+        setFormValid("Por favor, completa todos los campos obligatorios");
+        return;
+      } 
     }
-    
+
+    // if (emailInput && !passwordInput) {
+    //   if (!usernameInput) {
+    //     setUsernameError(true);
+    //     setPasswordError(true);
+    //     setEmailError(false);
+    //     setFormValid("Por favor, ingrese un nombre de usuario y contraseña");
+    //     return;
+    //   } else {
+    //     setUsernameError(false);
+    //     setPasswordError(true);
+    //     setEmailError(false);
+    //     setFormValid("Por favor, ingrese una contraseña");
+    //     return;
+    //   }
+    // }
+
+    // if (!emailInput && passwordInput) {
+    //   if (!usernameInput) {
+    //     setUsernameError(true);
+    //     setPasswordError(false);
+    //     setEmailError(true);
+    //     setFormValid("Por favor, ingrese un nombre de usuario y correo electronico");
+    //     return;
+    //   } else {
+    //     setUsernameError(false);
+    //     setPasswordError(false);
+    //     setEmailError(true);
+    //     setFormValid("Por favor, ingrese un correo electronico");
+    //     return;
+    //   }
+    // }
+
+
+
     if (emailError || passwordError) {
       setFormValid("")
       return;
@@ -331,8 +376,18 @@ export default function Login() {
   };
 
   useEffect(() => {
-    validarPassword();
-    setPasswordError(!passwordInput || passwordInput.length < 8 || passwordInput.length > 16);
+    if (passwordInput) {
+      validarPassword();
+      setPasswordError(!passwordInput || passwordInput.length < 8 || passwordInput.length > 16);
+      if (passwordErrorCaracter || passwordErrorMayusculas || passwordErrorNumero) {
+        setPasswordError(true);
+      }
+    } else {
+      setPasswordError(false);
+      setPasswordErrorCaracter(false);
+      setPasswordErrorMayusculas(false);
+      setPasswordErrorNumero(false);
+    }
   }, [passwordInput, passwordErrorMayusculas, passwordErrorNumero, passwordErrorCaracter]);
 
   const pressEnter = (event) => {

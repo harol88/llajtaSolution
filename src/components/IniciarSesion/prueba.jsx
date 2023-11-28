@@ -9,9 +9,15 @@ const BotonConContador = () => {
       // Incrementa el número de intentos
       setIntentos((prevIntentos) => prevIntentos + 1);
 
-      if (intentos === 2) {
+      if (intentos === 3) {
         // Si se han realizado tres intentos, bloquea el botón
         setBloqueado(true);
+
+        // Establece un temporizador para desbloquear el botón después de 5 minutos (300,000 milisegundos)
+        setTimeout(() => {
+          setBloqueado(false);
+          setIntentos(0); // Reinicia el contador de intentos
+        }, 800000); // 300,000 milisegundos = 5 minutos
       }
 
       // Aquí puedes agregar tu lógica para el clic del botón

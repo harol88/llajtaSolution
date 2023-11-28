@@ -159,8 +159,10 @@ export default function Login() {
       return;
     }
     setPasswordErrorMax(false);
-    setPasswordError(false);
     setPasswordErrorMin(false);
+    setPasswordError(false);
+    setFormValidPassword("")
+    return;
   }
 
   //handle Submittion
@@ -176,10 +178,18 @@ export default function Login() {
       return;
     }
 
-    if (emailError || passwordError) {
-      setFormValid("")
+    if (emailInput && !passwordInput) {
+      setPasswordError(true);
+      setFormValid("Por favor ingrese una contraseña")
       return;
     }
+
+    if (!emailError || passwordError) {
+      setEmailError(true);
+      setFormValid("Por favor ingrese un correo electronico")
+      return;
+    }
+
 
     setFormValid(null);
 
@@ -311,7 +321,6 @@ export default function Login() {
   const validarPassword = () => {
     //console.log(passwordInput);
     if (passwordInput) {
-      set
       //  setFormValidPassword("La contraseña debe ser mayor o igual a 8 caracteres.");
       validarPasswordTamaño();
       // validarPasswordTamañoMensajes();
@@ -325,8 +334,18 @@ export default function Login() {
   };
 
   useEffect(() => {
-    validarPassword();
-    setPasswordError(!passwordInput || passwordInput.length < 8 || passwordInput.length > 16);
+    if(passwordInput){
+      validarPassword();
+      setPasswordError(!passwordInput || passwordInput.length < 8 || passwordInput.length > 16);
+      if (passwordErrorCaracter || passwordErrorMayusculas || passwordErrorNumero){
+        setPasswordError(true);
+      }
+    }else{
+      setPasswordError(false);
+      setPasswordErrorCaracter(false);
+      setPasswordErrorMayusculas(false);
+      setPasswordErrorNumero(false);
+    }
   }, [passwordInput, passwordErrorMayusculas, passwordErrorNumero, passwordErrorCaracter]);
 
   const pressEnter = (event) => {

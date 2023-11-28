@@ -5,10 +5,10 @@ import View from './views/VistaInicio'
 function App() {
   const token = localStorage.getItem('token');
   const mostrarToken = () => {
-    console.log('AQUI EL TOKEN', token);
+    //console.log('AQUI EL TOKEN', token);
     // Recuperar la constante de localStorage y convertirla de nuevo a su formato original
     const miConstanteRecuperada = JSON.parse(localStorage.getItem('email'));
-    console.log('CORREOOOOOO', miConstanteRecuperada); // Mostrará el objeto original
+    //console.log('CORREOOOOOO', miConstanteRecuperada); // Mostrará el objeto original
   }
   return (
     <Router>
