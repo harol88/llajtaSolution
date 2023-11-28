@@ -232,7 +232,7 @@ export default function Login() {
 
 
 
-    if (emailError || passwordError) {
+    if (usernameError || emailError || passwordError) {
       setFormValid("")
       return;
     }
@@ -251,6 +251,7 @@ export default function Login() {
     }
     if (usernameDuplicado) {
       setUsernameError(true);
+      setFormValidUsername("");
       setFormValid("El nombre de usuario ya está registrado. Por favor, elige otro.");
       return;
     } else {

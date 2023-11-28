@@ -468,7 +468,7 @@ export default function Login() {
 
         <div align="center" style={{ marginTop: "15px" }}>
           <Link to='/recuperar'>
-            Olvido su contraseña?
+            ¿Olvidó su contraseña?
           </Link>
         </div>
       </div>
