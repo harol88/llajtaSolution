@@ -193,7 +193,10 @@ export default function Login() {
         setUsernameError(true);
         setPasswordError(true);
         setEmailError(true);
-        setFormValid("Por favor, completa todos los campos obligatorios");
+        setFormValidUsername("");
+        setFormValidEmail("");
+        setFormValidPassword("");
+        setFormValid("Campos obligatorios. Por favor ingresa un nombre de usuario, correo electronico y contraseña");
         return;
       } 
     }

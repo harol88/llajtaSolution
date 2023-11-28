@@ -90,7 +90,12 @@ export default function Login() {
   }
 
   useEffect(() => {
-    validarEmail();
+    if (emailInput) {
+      validarEmail();
+    } else {
+      setEmailError(false);
+    }
+
   }, [emailInput]);
 
   // Validación de inputs de contraseña
@@ -166,6 +171,7 @@ export default function Login() {
   }
 
   //handle Submittion
+
   const handleSubmit = () => {
     setSuccess(null);
     //First of all Check for Errors
@@ -174,22 +180,32 @@ export default function Login() {
     if (!emailInput && !passwordInput) {
       setPasswordError(true);
       setEmailError(true);
+      setFormValidEmail("");
+      setFormValidPassword("");
       setFormValid("Campos obligatorios.Por favor ingrese un correo electrónico y contraseña");
       return;
     }
 
+    if (emailError || passwordError){
+      setFormValid("");
+      return;
+    }
+
     if (emailInput && !passwordInput) {
-      setPasswordError(true);
-      setFormValid("Por favor ingrese una contraseña")
-      return;
+
+        setPasswordError(true);
+        setFormValid("Por favor ingrese una contraseña")
+        return;
+      
     }
 
-    if (!emailError || passwordError) {
-      setEmailError(true);
-      setFormValid("Por favor ingrese un correo electronico")
-      return;
+    if (!emailInput && passwordInput) {
+    
+        setEmailError(true);
+        setFormValid("Por favor ingrese un correo electronico")
+        return;
+      
     }
-
 
     setFormValid(null);
 
@@ -198,7 +214,6 @@ export default function Login() {
     if (miToken != undefined) {
       showConfirmationModal();
       setSuccess("Inicio de sesión realizado exitosamente");
-      reset();
     } else {
       setPasswordError(true);
       setFormValid("Contraseña inválida. Por favor intente nuevamente");
@@ -334,13 +349,13 @@ export default function Login() {
   };
 
   useEffect(() => {
-    if(passwordInput){
+    if (passwordInput) {
       validarPassword();
       setPasswordError(!passwordInput || passwordInput.length < 8 || passwordInput.length > 16);
-      if (passwordErrorCaracter || passwordErrorMayusculas || passwordErrorNumero){
+      if (passwordErrorCaracter || passwordErrorMayusculas || passwordErrorNumero) {
         setPasswordError(true);
       }
-    }else{
+    } else {
       setPasswordError(false);
       setPasswordErrorCaracter(false);
       setPasswordErrorMayusculas(false);
