@@ -79,7 +79,8 @@ const classImagen = "menuItemImagen " + `${hoverTitulo ? "menuItemTituloHover" :
 
 const urlImagen = 'http://18.116.106.247:3000/media/imagen/' + image.replace(/ /g, "%20")
   return (
-    <div className="menuItem">
+    <>
+      {token!=null ?     <div className="menuItem">
       <Link to={`/mostrar-platillo/page/${id}`} className='ItemContenedorImagen'>
         <div className={classImagen}
         style={{ backgroundImage: `url(${urlImagen})` }}> 
@@ -95,7 +96,24 @@ const urlImagen = 'http://18.116.106.247:3000/media/imagen/' + image.replace(/ /
       
       {token!=null ? likeClick===false ? <HeartOutlined className="classHeart " onClick={like}/> : <HeartIcon onClick={like} style={{color:"red",}} className="classHeartLike"/>: ""}
      </div>
-  </div>
+  </div>:    <div className="menuItem">
+      <div className='ItemContenedorImagen'>
+        <div className={classImagen}
+        style={{ backgroundImage: `url(${urlImagen})` }}> 
+        </div>
+      </div>
+     <div className="contenedorTitulo">
+      <div  className="ItemContenedorTitulo" >
+          <h3 className="menuItemTitulo"
+          onMouseEnter={hoverTrue}
+          onMouseLeave={hoverFalse}> {name} </h3>
+          
+        </div>
+      
+      {token!=null ? likeClick===false ? <HeartOutlined className="classHeart " onClick={like}/> : <HeartIcon onClick={like} style={{color:"red",}} className="classHeartLike"/>: ""}
+     </div>
+  </div>}
+    </>
   );
 }
 

@@ -44,6 +44,14 @@
 .menu-open {
   display: block; /* Mostrar el menú desplegable en pantallas pequeñas */
 }
+.center{
+  width: 110%;
+  margin-left: -5%;
+}
+.center .menu{
+  width: 100%;
+  margin: 0 auto;
+}
 
 /*PARTE RESPONSIVE*/
 @media (min-width: 320px) and (max-width: 481px){

@@ -51,8 +51,8 @@ const ButtonLogout = () => {
   }
 
   return (
-    <div>
-      <Button className={`${'menu'}`} style={{ width: '135%', marginLeft: '-20px' }} onClick={showConfirmationModal}><LogoutOutlined />Cerrar Sesión</Button>
+    <div className='center'> 
+      <Button className={`${'menu'}`}  onClick={showConfirmationModal}><LogoutOutlined />Cerrar Sesión</Button>
       <Modal
         visible={visible}
         closable={false}
