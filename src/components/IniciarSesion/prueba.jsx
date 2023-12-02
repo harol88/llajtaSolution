@@ -1,40 +1,49 @@
 import React, { useState } from 'react';
 
-const BotonConContador = () => {
-  const [intentos, setIntentos] = useState(0);
-  const [bloqueado, setBloqueado] = useState(false);
+const ModalLogin = ({ isOpen, onClose }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleClick = () => {
-    if (!bloqueado) {
-      // Incrementa el número de intentos
-      setIntentos((prevIntentos) => prevIntentos + 1);
+  const handleLogin = () => {
+    // Lógica de autenticación aquí
+    // En este ejemplo, simplemente mostramos los datos ingresados
+    console.log('Usuario:', username);
+    console.log('Contraseña:', password);
 
-      if (intentos === 3) {
-        // Si se han realizado tres intentos, bloquea el botón
-        setBloqueado(true);
-
-        // Establece un temporizador para desbloquear el botón después de 5 minutos (300,000 milisegundos)
-        setTimeout(() => {
-          setBloqueado(false);
-          setIntentos(0); // Reinicia el contador de intentos
-        }, 800000); // 300,000 milisegundos = 5 minutos
-      }
-
-      // Aquí puedes agregar tu lógica para el clic del botón
-      // Puedes realizar la lógica de validación aquí
-
-      // Ejemplo simple de mensaje en la consola
-      console.log('Haciendo algo en el clic del botón');
-    }
+    // Cierra el modal después de iniciar sesión
+    onClose();
   };
 
   return (
-    <div>
-      <button onClick={handleClick} disabled={bloqueado}>
-        {bloqueado ? 'Botón Bloqueado' : 'Hacer algo'}
-      </button>
+    <div style={{ display: isOpen ? 'block' : 'none' }}>
+      <div>
+        <span onClick={onClose}>&times;</span>
+        <h2>Iniciar Sesión</h2>
+        <button onClick={onClose}>Cerrar Modal</button>
+      </div>
     </div>
   );
 };
 
-export default BotonConContador;
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  background: 'white',
+  padding: '20px',
+  textAlign: 'center',
+  border: '1px solid #ccc',
+  borderRadius: '5px',
+  boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+};
+
+const closeStyle = {
+  position: 'absolute',
+  top: '10px',
+  right: '10px',
+  fontSize: '20px',
+  cursor: 'pointer',
+};
+
+export default ModalLogin;

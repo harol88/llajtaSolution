@@ -18,7 +18,7 @@ import LoginIcon from "@mui/icons-material/Login";
 
 export default function Login() {
   const [visible, setVisible] = useState(false);
-  const dataEmail = JSON.parse(localStorage.getItem('emailSave'));
+  const dataEmail = ''//JSON.parse(localStorage.getItem('emailSave'));
   const recordar = localStorage.getItem('recordar');
   const [token, setToken] = useState();
   const [showPassword, setShowPassword] = React.useState(false);
@@ -91,6 +91,7 @@ export default function Login() {
 
   useEffect(() => {
     if (emailInput) {
+      setFormValid("");
       validarEmail();
     } else {
       setEmailError(false);
@@ -156,7 +157,7 @@ export default function Login() {
       setFormValidPassword("La contraseña debe ser menor o igual a 16 caracteres.");
       return;
     }
-    if (passwordInput.length < 7) {
+    if (passwordInput.length < 8) {
       setPasswordErrorMax(false);
       setPasswordError(true);
       setPasswordErrorMin(true);
@@ -186,25 +187,39 @@ export default function Login() {
       return;
     }
 
-    if (emailError || passwordError){
-      setFormValid("");
+    if (emailInput && !passwordInput) {
+      setPasswordError(true);
+      if (emailError) {
+        setFormValid("Por favor, verifica el correo electrónico e ingresa una contraseña")
+        return;
+      }
+      setFormValid("Por favor, ingresa una contraseña")
       return;
     }
 
-    if (emailInput && !passwordInput) {
-
-        setPasswordError(true);
-        setFormValid("Por favor ingrese una contraseña")
+    if (!emailInput && passwordInput){
+      setEmailError(true);
+      if(passwordError){
+        setFormValid("Por favor, ingresa un correo electrónico y verifica la contraseña")
         return;
-      
+      }
+      setFormValid("Por favor, ingresa un correo electrónico")
+        return;
     }
 
-    if (!emailInput && passwordInput) {
-    
-        setEmailError(true);
-        setFormValid("Por favor ingrese un correo electronico")
+    if (emailInput && passwordInput){
+      if(emailError && passwordError){
+        setFormValid("Por favor, verifica el correo electrónico y la contraseña")
         return;
-      
+      }
+      if(!emailError && passwordError){
+        setFormValid("Por favor, verifica la contraseña")
+        return;
+      }
+      if(emailError && !passwordError){
+        setFormValid("Por favor, verifica el correo electrónico")
+        return;
+      }
     }
 
     setFormValid(null);
@@ -305,7 +320,8 @@ export default function Login() {
   };
 
   const loginExitoso = () => {
-    return !emailError && !passwordError && !passwordErrorMayusculas && !passwordErrorNumero && !passwordErrorCaracter && !passwordErrorMax && !passwordErrorMin;
+    return !emailError && !passwordError && !passwordErrorMayusculas && !passwordErrorNumero && !passwordErrorCaracter
+      && !passwordErrorMax && !passwordErrorMin && emailInput && passwordInput;
   };
 
   //Recordar datos
@@ -349,6 +365,7 @@ export default function Login() {
   };
 
   useEffect(() => {
+    setFormValid("");
     if (passwordInput) {
       validarPassword();
       setPasswordError(!passwordInput || passwordInput.length < 8 || passwordInput.length > 16);

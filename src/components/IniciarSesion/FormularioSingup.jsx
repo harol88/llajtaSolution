@@ -60,6 +60,9 @@ export default function Login() {
 
   // Validation for onBlur Username
   const validarUsername = () => {
+    // Expresión regular para permitir solo letras, números y guiones bajos
+    const caracteresPermitidos = /^[a-zA-Z0-9_]+$/;
+    setFormValid("");
     if (!usernameInput) {
       setUsernameError(true);
       setFormValidUsername("Ingrese un nombre de usuario");
@@ -69,6 +72,11 @@ export default function Login() {
       setUsernameErrorSize(true);
       setUsernameError(true);
       setFormValidUsername("El nombre de usuario debe tener entre 4 y 20 caracteres");
+      return;
+    }
+    if (!caracteresPermitidos.test(usernameInput)) {
+      setUsernameError(true);
+      setFormValidUsername("El nombre de usuario solo puede contener letras, números y guiones bajos");
       return;
     }
     setUsernameError(false);
@@ -127,12 +135,12 @@ export default function Login() {
 
   const validarPasswordRestricciones = (input) => {
     const tieneMayuscula = /[A-Z]/.test(input);
-    const tieneCaracterEspecial = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(input);
+    const tieneCaracterEspecial = /[-\/:;&@.,?!%*]/.test(input);
     const tieneNumero = /\d/.test(input);
     setFormValid("");
     // Actualizar estados según las restricciones
     if (!tieneMayuscula) {
-      setFormValidPasswordMayusculas("La contraseña debe incluir al menos 1 letra Mayuscula");
+      setFormValidPasswordMayusculas("La contraseña debe incluir al menos 1 letra Mayúscula");
       setPasswordErrorMayusculas(true);
     } else {
       setPasswordErrorMayusculas(false);
@@ -162,7 +170,7 @@ export default function Login() {
       setFormValidPassword("La contraseña debe ser menor o igual a 16 caracteres.");
       return;
     }
-    if (passwordInput.length < 7) {
+    if (passwordInput.length < 8) {
       setPasswordErrorMax(false);
       setPasswordError(true);
       setPasswordErrorMin(true);
@@ -188,59 +196,143 @@ export default function Login() {
 
 
     // Si existe campos vacios
-    if (!emailInput && !passwordInput) {
-      if (!usernameInput) {
-        setUsernameError(true);
-        setPasswordError(true);
-        setEmailError(true);
-        setFormValidUsername("");
-        setFormValidEmail("");
-        setFormValidPassword("");
-        setFormValid("Campos obligatorios. Por favor ingresa un nombre de usuario, correo electronico y contraseña");
-        return;
-      } 
-    }
-
-    // if (emailInput && !passwordInput) {
-    //   if (!usernameInput) {
-    //     setUsernameError(true);
-    //     setPasswordError(true);
-    //     setEmailError(false);
-    //     setFormValid("Por favor, ingrese un nombre de usuario y contraseña");
-    //     return;
-    //   } else {
-    //     setUsernameError(false);
-    //     setPasswordError(true);
-    //     setEmailError(false);
-    //     setFormValid("Por favor, ingrese una contraseña");
-    //     return;
-    //   }
-    // }
-
-    // if (!emailInput && passwordInput) {
-    //   if (!usernameInput) {
-    //     setUsernameError(true);
-    //     setPasswordError(false);
-    //     setEmailError(true);
-    //     setFormValid("Por favor, ingrese un nombre de usuario y correo electronico");
-    //     return;
-    //   } else {
-    //     setUsernameError(false);
-    //     setPasswordError(false);
-    //     setEmailError(true);
-    //     setFormValid("Por favor, ingrese un correo electronico");
-    //     return;
-    //   }
-    // }
-
-
-
-    if (usernameError || emailError || passwordError) {
-      setFormValid("")
+    if (!emailInput && !passwordInput && !usernameInput) {
+      setUsernameError(true);
+      setPasswordError(true);
+      setEmailError(true);
+      setFormValidUsername("");
+      setFormValidEmail("");
+      setFormValidPassword("");
+      setFormValid("Campos obligatorios. Por favor ingresa un nombre de usuario, correo electrónico y contraseña");
       return;
     }
 
+    //Casos con username: ----------------------------------------------------------------
+    if (usernameInput && !emailInput && !passwordInput) {
+      if (usernameError) {
+        setEmailError(true);
+        setPasswordError(true);
+        setFormValid("Por favor, verifique el nombre usuario e ingrese un correo electrónico y contraseña");
+        return;
+      }
+      setEmailError(true);
+      setPasswordError(true);
+      setFormValid("Por favor, ingrese un correo electrónico y contraseña");
+      return;
+    }
 
+    if (usernameInput && emailInput && !passwordInput) {
+      setPasswordError(true);
+      if (usernameError && emailError) {
+        setFormValid("Por favor, verifique los campos e ingrese una contraseña");
+        return;
+      }
+      if (usernameError && !emailError) {
+        setFormValid("Por favor, verifique el nombre de usuario e ingrese una contraseña");
+        return;
+      }
+      if (!usernameError && emailError) {
+        setFormValid("Por favor, verifique el correo electrónico e ingrese una contraseña");
+        return;
+      }
+      setFormValid("Por favor, ingrese una contraseña");
+      return;
+    }
+
+    if (usernameInput && !emailInput && passwordInput) {
+      setEmailError(true);
+      if (usernameError && passwordError) {
+        setFormValid("Por favor, verifique los campos e ingrese un correo electrónico");
+        return;
+      }
+      if (usernameError && !passwordError) {
+        setFormValid("Por favor, verifique el nombre de usuario e ingrese un correo electrónico");
+        return;
+      }
+      if (!usernameError && passwordError) {
+        setFormValid("Por favor, ingrese un correo electrónico y verifique la contraseña");
+        return;
+      }
+      setFormValid("Por favor, ingrese un correo electrónico");
+      return;
+    }
+
+    //Casos con email: ----------------------------------------------------------------
+    if (!usernameInput && emailInput && !passwordInput) {
+      if (emailError) {
+        setUsernameError(true);
+        setPasswordError(true);
+        setFormValid("Por favor, verifique el correo electrónico e ingrese un nombre de usuario y contraseña");
+        return;
+      }
+      setUsernameError(true);
+      setPasswordError(true);
+      setFormValid("Por favor, ingrese un nombre de usuario y contraseña");
+      return;
+    }
+
+    if (!usernameInput && emailInput && passwordInput) {
+      setUsernameError(true);
+      if (emailError && passwordError) {
+        setFormValid("Por favor, ingrese un nombre de usuario y verifique los campos");
+        return;
+      }
+      if (emailError && !passwordError) {
+        setFormValid("Por favor, ingrese un nombre de usuario y verifique el correo electrónico");
+        return;
+      }
+      if (!emailError && passwordError) {
+        setFormValid("Por favor, ingrese un nombre de usuario y verifique la contraseña");
+        return;
+      }
+      setFormValid("Por favor, ingrese un nombre de usuario");
+      return;
+    }
+
+    //Casos con password: ----------------------------------------------------------------
+    if (!usernameInput && !emailInput && passwordInput) {
+      if (passwordError) {
+        setUsernameError(true);
+        setEmailError(true);
+        setFormValid("Por favor, verifique la contraseña e ingrese un nombre de usuario y un correo electrónico");
+        return;
+      }
+      setUsernameError(true);
+      setPasswordError(true);
+      setFormValid("Por favor, ingrese un nombre de usuario y correo electrónico");
+      return;
+    }
+
+    if(usernameInput && emailInput && passwordInput){
+      if(usernameError && emailError && passwordError){
+        setFormValid("Por favor, verifica todos los campos")
+        return;
+      }
+      if(usernameError && emailError && !passwordError){
+        setFormValid("Por favor, verifica el nombre de usuario y correo electrónico")
+        return;
+      }
+      if(usernameError && !emailError && passwordError){
+        setFormValid("Por favor, verifica el nombre de usuario y contraseña")
+        return;
+      }
+      if(!usernameError && emailError && passwordError){
+        setFormValid("Por favor, verifica el correo electrónico y contraseña")
+        return;
+      }
+      if(usernameError && !emailError && !passwordError){
+        setFormValid("Por favor, verifica el nombre de usuario")
+        return;
+      }
+      if(!usernameError && emailError && !passwordError){
+        setFormValid("Por favor, verifica el correo electrónico")
+        return;
+      }
+      if(!usernameError && !emailError && passwordError){
+        setFormValid("Por favor, verifica la contraseña")
+        return;
+      }
+    }
     setFormValid(null);
     const esEmailDuplicado = JSON.parse(localStorage.getItem('emailDuplicado'));
     const usernameDuplicado = JSON.parse(localStorage.getItem('usernameDuplicado'));
@@ -249,7 +341,7 @@ export default function Login() {
 
     if (esEmailDuplicado) {
       setEmailError(true);
-      setFormValid("El correo electrónico ya esta registrado. Por favor ingrese otro");
+      setFormValid("El correo electrónico ya está registrado. Por favor ingrese otro");
       return;
     }
     if (usernameDuplicado) {
@@ -335,7 +427,8 @@ export default function Login() {
   };
 
   const loginExitoso = () => {
-    return !emailError && !passwordError && !passwordErrorMayusculas && !passwordErrorNumero && !passwordErrorCaracter && !passwordErrorMax && !passwordErrorMin;
+    return !emailError && !passwordError && !passwordErrorMayusculas && !passwordErrorNumero
+      && !passwordErrorCaracter && !passwordErrorMax && !passwordErrorMin && usernameInput && emailInput && passwordInput;
   };
 
   //Recordar datos
@@ -506,6 +599,7 @@ export default function Login() {
           </FormControl>
         </div>
 
+
         <div style={{ fontSize: "15px" }}>
           <Checkbox
             {...label}
@@ -514,6 +608,7 @@ export default function Login() {
           />
           Recordar
         </div>
+
 
         <div style={{ marginTop: "10px" }}>
           <Button

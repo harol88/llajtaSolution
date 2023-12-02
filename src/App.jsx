@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import View from './views/VistaInicio'
 
 function App() {
+  
   const token = localStorage.getItem('token');
   const mostrarToken = () => {
     //console.log('AQUI EL TOKEN', token);
