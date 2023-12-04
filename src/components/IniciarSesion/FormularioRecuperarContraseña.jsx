@@ -205,8 +205,8 @@ export default function PasswordRecovery() {
 
     
 
-    console.log(token);
-    console.log(passwordInput);
+    //console.log(token);
+    //console.log(passwordInput);
     try {
       const response = await fetch(uri+'cambiarContra', {
         method: 'POST',

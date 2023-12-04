@@ -65,18 +65,18 @@ export default function Login() {
     setFormValid("");
     if (!usernameInput) {
       setUsernameError(true);
-      setFormValidUsername("Ingrese un nombre de usuario");
+      setFormValidUsername("- Ingrese un nombre de usuario");
       return;
     }
     if (usernameInput.length < 4 || usernameInput.length > 20) {
       setUsernameErrorSize(true);
       setUsernameError(true);
-      setFormValidUsername("El nombre de usuario debe tener entre 4 y 20 caracteres");
+      setFormValidUsername("- El nombre de usuario debe tener entre 4 y 20 caracteres");
       return;
     }
     if (!caracteresPermitidos.test(usernameInput)) {
       setUsernameError(true);
-      setFormValidUsername("El nombre de usuario solo puede contener letras, números y guiones bajos");
+      setFormValidUsername("- El nombre de usuario solo puede contener letras, números y guiones bajos");
       return;
     }
     setUsernameError(false);
@@ -107,17 +107,17 @@ export default function Login() {
     }
     if (isEmail(emailInput)) {
       setEmailError(true);
-      setFormValidEmail("El correo electrónico es inválido. Por favor ingrese solo correos con el dominio de @gmail.com ");
+      setFormValidEmail("- El correo electrónico es inválido. Por favor ingrese solo correos con el dominio de @gmail.com ");
       return;
     }
     if (!emailInput) {
       setEmailError(true);
-      setFormValidEmail("Ingrese un correo electrónico");
+      setFormValidEmail("- Ingrese un correo electrónico");
       return;
     } else {
       setFormValid("");
       setEmailError(true);
-      setFormValidEmail("Formato de correo inválido. Por favor ingrese un correo electrónico válido");
+      setFormValidEmail("- Formato de correo inválido. Por favor ingrese un correo electrónico válido");
       return;
     }
   }
@@ -140,19 +140,19 @@ export default function Login() {
     setFormValid("");
     // Actualizar estados según las restricciones
     if (!tieneMayuscula) {
-      setFormValidPasswordMayusculas("La contraseña debe incluir al menos 1 letra Mayúscula");
+      setFormValidPasswordMayusculas("- La contraseña debe incluir al menos 1 letra Mayúscula");
       setPasswordErrorMayusculas(true);
     } else {
       setPasswordErrorMayusculas(false);
     }
     if (!tieneNumero) {
-      setFormValidPasswordNumero("La contraseña debe incluir al menos 1 número");
+      setFormValidPasswordNumero("- La contraseña debe incluir al menos 1 número");
       setPasswordErrorNumero(true);
     } else {
       setPasswordErrorNumero(false);
     }
     if (!tieneCaracterEspecial) {
-      setFormValidPasswordCaracter("La contraseña debe incluir al menos un caracter: -/:;&@.,?!%*.");
+      setFormValidPasswordCaracter("- La contraseña debe incluir al menos un caracter: -/:;&@.,?!%*.");
       setPasswordErrorCaracter(true);
     } else {
       setPasswordErrorCaracter(false);
@@ -167,14 +167,14 @@ export default function Login() {
       setPasswordError(true);
       setPasswordErrorMax(true);
       setPasswordErrorMin(false);
-      setFormValidPassword("La contraseña debe ser menor o igual a 16 caracteres.");
+      setFormValidPassword("- La contraseña debe ser menor o igual a 16 caracteres.");
       return;
     }
     if (passwordInput.length < 8) {
       setPasswordErrorMax(false);
       setPasswordError(true);
       setPasswordErrorMin(true);
-      setFormValidPassword("La contraseña debe ser mayor o igual a 8 caracteres.");
+      setFormValidPassword("- La contraseña debe ser mayor o igual a 8 caracteres.");
       return;
     }
     setPasswordErrorMax(false);
@@ -182,6 +182,15 @@ export default function Login() {
     setPasswordErrorMin(false);
     setFormValidPassword("")
     return;
+  }
+
+  const limpiarMensajesInput = () => {
+    setFormValidUsername("");
+    setFormValidEmail("");
+    setFormValidPassword("");
+    setFormValidPasswordCaracter("");
+    setFormValidPasswordMayusculas("");
+    setFormValidPasswordNumero("");
   }
   //-------------------------------------------------------------------------------------------------
   //handle Submittion
@@ -200,15 +209,14 @@ export default function Login() {
       setUsernameError(true);
       setPasswordError(true);
       setEmailError(true);
-      setFormValidUsername("");
-      setFormValidEmail("");
-      setFormValidPassword("");
+      limpiarMensajesInput();
       setFormValid("Campos obligatorios. Por favor ingresa un nombre de usuario, correo electrónico y contraseña");
       return;
     }
 
     //Casos con username: ----------------------------------------------------------------
     if (usernameInput && !emailInput && !passwordInput) {
+      limpiarMensajesInput();
       if (usernameError) {
         setEmailError(true);
         setPasswordError(true);
@@ -222,6 +230,7 @@ export default function Login() {
     }
 
     if (usernameInput && emailInput && !passwordInput) {
+      limpiarMensajesInput();
       setPasswordError(true);
       if (usernameError && emailError) {
         setFormValid("Por favor, verifique los campos e ingrese una contraseña");
@@ -240,6 +249,7 @@ export default function Login() {
     }
 
     if (usernameInput && !emailInput && passwordInput) {
+      limpiarMensajesInput();
       setEmailError(true);
       if (usernameError && passwordError) {
         setFormValid("Por favor, verifique los campos e ingrese un correo electrónico");
@@ -259,6 +269,7 @@ export default function Login() {
 
     //Casos con email: ----------------------------------------------------------------
     if (!usernameInput && emailInput && !passwordInput) {
+      limpiarMensajesInput();
       if (emailError) {
         setUsernameError(true);
         setPasswordError(true);
@@ -272,6 +283,7 @@ export default function Login() {
     }
 
     if (!usernameInput && emailInput && passwordInput) {
+      limpiarMensajesInput();
       setUsernameError(true);
       if (emailError && passwordError) {
         setFormValid("Por favor, ingrese un nombre de usuario y verifique los campos");
@@ -291,6 +303,7 @@ export default function Login() {
 
     //Casos con password: ----------------------------------------------------------------
     if (!usernameInput && !emailInput && passwordInput) {
+      limpiarMensajesInput();
       if (passwordError) {
         setUsernameError(true);
         setEmailError(true);
@@ -303,32 +316,33 @@ export default function Login() {
       return;
     }
 
-    if(usernameInput && emailInput && passwordInput){
-      if(usernameError && emailError && passwordError){
+    if (usernameInput && emailInput && passwordInput) {
+      limpiarMensajesInput();
+      if (usernameError && emailError && passwordError) {
         setFormValid("Por favor, verifica todos los campos")
         return;
       }
-      if(usernameError && emailError && !passwordError){
+      if (usernameError && emailError && !passwordError) {
         setFormValid("Por favor, verifica el nombre de usuario y correo electrónico")
         return;
       }
-      if(usernameError && !emailError && passwordError){
+      if (usernameError && !emailError && passwordError) {
         setFormValid("Por favor, verifica el nombre de usuario y contraseña")
         return;
       }
-      if(!usernameError && emailError && passwordError){
+      if (!usernameError && emailError && passwordError) {
         setFormValid("Por favor, verifica el correo electrónico y contraseña")
         return;
       }
-      if(usernameError && !emailError && !passwordError){
+      if (usernameError && !emailError && !passwordError) {
         setFormValid("Por favor, verifica el nombre de usuario")
         return;
       }
-      if(!usernameError && emailError && !passwordError){
+      if (!usernameError && emailError && !passwordError) {
         setFormValid("Por favor, verifica el correo electrónico")
         return;
       }
-      if(!usernameError && !emailError && passwordError){
+      if (!usernameError && !emailError && passwordError) {
         setFormValid("Por favor, verifica la contraseña")
         return;
       }
@@ -340,13 +354,14 @@ export default function Login() {
     // Show Successfull Submittion
 
     if (esEmailDuplicado) {
+      limpiarMensajesInput();
       setEmailError(true);
       setFormValid("El correo electrónico ya está registrado. Por favor ingrese otro");
       return;
     }
     if (usernameDuplicado) {
       setUsernameError(true);
-      setFormValidUsername("");
+      limpiarMensajesInput();
       setFormValid("El nombre de usuario ya está registrado. Por favor, elige otro.");
       return;
     } else {
@@ -515,7 +530,7 @@ export default function Login() {
             onKeyDown={pressEnter}
           />
           {usernameError && (
-            <Typography variant="caption" color="error" style={{ marginTop: "5px" }}>
+            <Typography variant="caption" color="error" style={{fontSize:"0.8em", marginTop: "5px" }}>
               {formValidUsername}
             </Typography>
           )}
@@ -538,7 +553,7 @@ export default function Login() {
             onKeyDown={pressEnter}
           />
           {emailError && (
-            <Typography variant="caption" color="error" style={{ marginTop: "5px" }}>
+            <Typography variant="caption" color="error" style={{ fontSize:"0.8em", marginTop: "5px" }}>
               {formValidEmail}
             </Typography>
           )}
@@ -576,23 +591,23 @@ export default function Login() {
             />
             <>
               {passwordError && (
-                <Typography variant="caption" color="error" style={{ marginTop: "5px" }}>
+                <Typography variant="caption" color="error" style={{ fontSize:"0.8em", marginTop: "5px" }}>
                   {formValidPassword}
                 </Typography>
               )}
               {passwordErrorMayusculas && (
-                <Typography variant="caption" color="error" style={{ marginTop: "5px" }}>
-                  - {formValidPasswordMayusculas}
+                <Typography variant="caption" color="error" style={{ fontSize:"0.8em", marginTop: "5px" }}>
+                  {formValidPasswordMayusculas}
                 </Typography>
               )}
               {passwordErrorNumero && (
-                <Typography variant="caption" color="error" style={{ marginTop: "5px" }}>
-                  - {formValidPasswordNumero}
+                <Typography variant="caption" color="error" style={{ fontSize:"0.8em", marginTop: "5px" }}>
+                  {formValidPasswordNumero}
                 </Typography>
               )}
               {passwordErrorCaracter && (
-                <Typography variant="caption" color="error" style={{ marginTop: "5px" }}>
-                  - {formValidPasswordCaracter}
+                <Typography variant="caption" color="error" style={{ fontSize:"0.8em", marginTop: "5px" }}>
+                  {formValidPasswordCaracter}
                 </Typography>
               )}
             </>
@@ -626,7 +641,7 @@ export default function Login() {
       <div>
         {formValid && (
           <Stack sx={{ width: "100%", paddingTop: "10px" }} spacing={2}>
-            <Alert severity="error" size="small">
+            <Alert severity="error" style={{fontSize:"1em"}}>
               {formValid}
             </Alert>
           </Stack>

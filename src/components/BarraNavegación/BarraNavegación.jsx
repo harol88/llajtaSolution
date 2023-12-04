@@ -79,7 +79,7 @@ const App2 = () => {
               </div>
 
             </Menu.Item>
-          </div>
+          </div>  
           <SubMenu theme='dark' className={`${location.pathname === '/platillos-tradicionales' ? 'selected-menu-item' : ''} ${'menu'}`}
 
 
@@ -120,8 +120,8 @@ const App2 = () => {
 
           </SubMenu>
 
-          <SubMenu theme='dark' style={{ position: 'absolute', left: '90.5%', top: '10%' }}
-            icon={<FontAwesomeIcon icon={faCircleUser} style={{ fontSize: 30 }} />}
+          <SubMenu theme='dark' className='posicionIconUser'
+            icon={<FontAwesomeIcon icon={faCircleUser} style={{fontSize: 30 }} />}
             onTitleClick={handleSubmenu2Click}
             visible={submenu2Visible}>
 
@@ -142,7 +142,7 @@ const App2 = () => {
               <Menu.Item disabled={true} onClick={mostrarBotonLL}> <BLogout /> </Menu.Item>
             ) : (
               <Menu.Item disabled={true}>
-                <Link to="/Iniciar-sesion" >
+                <Link to="/iniciar-sesion" >
                   <Button className={`${'menu'}`} style={{ width: '135%', marginLeft: '-20px' }} onClick={mostrarBotonLL} icon={<LoginOutlined />}>Iniciar Sesión</Button>
                 </Link>
               </Menu.Item>
@@ -150,7 +150,7 @@ const App2 = () => {
           </SubMenu>
 
           {location.pathname === '/' && (
-            <Menu.Item key="Buscar" className={`uno ${location.pathname === '/buscador' ? 'selected-menu-item' : ''}`} style={{ position: 'absolute', left: '81%' }}>
+            <Menu.Item key="Buscar" className={`${location.pathname === '/buscador' ? 'selected-menu-item' : ''} ${'posicionIconBuscador'}`}>
               <Link to="/buscador">
                 <Button
                   icon={<SearchOutlined />}

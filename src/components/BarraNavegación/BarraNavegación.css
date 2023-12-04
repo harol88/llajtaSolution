@@ -17,8 +17,10 @@
   width: 50%;
   display: flex;
   align-items: center;
-  margin-left: auto; /* Empuja el Input.Search al lado derecho del menú */
+  margin-left: auto;
+  /* Empuja el Input.Search al lado derecho del menú */
 }
+
 .white-text {
   color: white;
 }
@@ -35,104 +37,143 @@
   padding: 30px;
 }
 
-.uno{
-  left: 95%;
-}
 .menu-button {
-  display: none; /* Ocultar el botón en pantallas grandes */
+  display: none;
+  /* Ocultar el botón en pantallas grandes */
 }
+
 .menu-open {
-  display: block; /* Mostrar el menú desplegable en pantallas pequeñas */
+  display: block;
+  /* Mostrar el menú desplegable en pantallas pequeñas */
 }
-.center{
+
+.center {
   width: 110%;
   margin-left: -5%;
 }
-.center .menu{
+
+.center .menu {
   width: 100%;
   margin: 0 auto;
 }
 
-/*PARTE RESPONSIVE*/
-@media (min-width: 320px) and (max-width: 481px){
+.posicionIconUser {
+  position: absolute;
+  right: auto;
+  left: 927px;
+  top: 7px;
+}
+
+.posicionIconBuscador {
+  position: absolute;
+  right: auto;
+  left: 800px;
+}
+
+/* ----------- CONFIGURACIÓN DE RESPONSIVE SEGÚN EL TAMAÑO DE PANTALLA  -----------*/
+@media (min-width: 320px) and (max-width: 481px) {
   .menu {
     font-size: 10px;
-    margin-left:-25px;
+    margin-left: 0px;
     height: 5px;
-    top: -8%;
+    top: 2px;
+    
+    padding-bottom: 36px;
   }
 
-/*   .relleno{
-    background-color: #7D0633;
-    padding-left: 48px;
-    padding-bottom: 31px;
-    margin-top: -149%;
-    margin-left: 108%;
-  } */
-
-  .selected-menu-item {
-    background-color: #7D0633;
-    color: #fff !important;
+  :where(.css-dev-only-do-not-override-2i2tap).ant-btn.ant-btn-icon-only {
+    width: 32px;
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    left: 40px;
+    top: -8px;
   }
 
-  .alMedio{
+  :where(.css-dev-only-do-not-override-2i2tap).ant-menu-horizontal .ant-menu-item,
+  :where(.css-dev-only-do-not-override-2i2tap).ant-menu-horizontal .ant-menu-submenu {
+    position: relative;
+    margin-left: 3px;
+    top: 0x;
+  }
+
+  .menu-icon {
+    position: relative;
+    left: 5px;
+    top: 15px;
+  }
+
+  .posicionIconUser {
+    position: absolute;
+    left: 150px;
+    top: -6px;
+    font-size: 10px;
+  }
+
+  .posicionIconBuscador {
+    position: absolute;
+    left: 17px;
+    top: -5px;
+  }
+
+  .alMedio {
     margin-top: -30px;
     margin-left: -10px;
   }
+
   .header {
-      height: 50px;
-  }
-
-  .prueba{
-    font-size: 10px;
-  }
-
-  :where(.css-dev-only-do-not-override-pr0fja).ant-menu ul, :where(.css-dev-only-do-not-override-pr0fja).ant-menu ol {
-    margin-top: -21px;
-    margin-left: -5%;
-    padding: 0;
-    list-style: none;
-  }
-
-  :where(.css-dev-only-do-not-override-pr0fja).ant-menu-submenu-popup .ant-menu-vertical.ant-menu-sub {
-    min-width: 60px;
-    max-height: 100px;
-    padding: 0;
-    overflow: hidden;
-    border-inline-end: 0;
-}
-}
-@media screen and (max-width:1050px){
-  .uno{
-    left: 93%;
-  }
-  
-}
-@media screen and (max-width:800px){
-  .uno{
-    left: 91%;
-  }
-  
-}
-@media screen and (max-width:600px){
-  .uno{
-    left: 88%;
-  }
-  
-}
-@media screen and (max-width:500px){
-  .uno{
-    left: 85%;
+    height: 38px;
+    top: 50px;
     
   }
-  .alMedio{
-    margin-left: -20px;
+}
+
+@media screen and (max-width:1050px) {
+  .posicionIconBuscador {
+    position: absolute;
+    right: auto;
+    left: 77%;
   }
 
 }
-@media screen and (max-width:350px){
-  .uno{
-    left: 80%;
+
+@media screen and (max-width:800px) {
+  .posicionIconBuscador {
+    /* position: absolute;
+    right: auto;
+    left: 77%; */
   }
-  
+
+}
+
+@media screen and (max-width:600px) {
+  .posicionIconBuscador {
+    /* position: absolute;
+    right: auto;
+    left: 77%; */
+  }
+
+}
+
+@media screen and (max-width:500px) {
+  .posicionIconBuscador {
+    /* position: absolute;
+  right: auto;
+  left: 77%; */
+  }
+
+  .alMedio {
+    /* position: absolute;
+    right: auto;
+    left: 77%; */
+  }
+
+}
+
+@media screen and (max-width:350px) {
+  .posicionIconBuscador {
+    /* position: absolute;
+    right: auto;
+    left: 77%; */
+  }
+
 }

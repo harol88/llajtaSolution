@@ -29,25 +29,24 @@ function vistaLogin() {
         <div>
         <img class="imgA" src="/src/assets/logo.png" alt="logo" />
         </div>
-          <h3>Rescatando Sabores</h3>
+          {/* <h3>Rescatando Sabores</h3> */}
           
           {checked ? (
             <Chip
-              className='DivIniSesion'
-              icon={<LockIcon style={{color:"#b07961"}}/>}
+              icon={<LockIcon style={{fontSize:"1.5em", color:"#b07961"}}/>}
               label="Iniciar sesión"
               variant="outlined"
               color="info"
-              style={{ color: '#b07961', borderColor:"#b07961" }}
+              style={{ fontSize:"1em", color: '#b07961', borderColor:"#b07961" }}
             />
           ) : (
             <Chip
               className='DivIniSesion'
-              icon={<FaceIcon style={{color:"#b07961"}} /> }
+              icon={<FaceIcon style={{ fontSize:"1.5em", color:"#b07961"}} /> }
               label="Registrarse"
               variant="outlined"
               color="info"
-              style={{ color: '#b07961', borderColor:"#b07961" }}
+              style={{  fontSize:"1em", color: '#b07961', borderColor:"#b07961" }}
             />
           )}
           <br />

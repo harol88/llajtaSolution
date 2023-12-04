@@ -14,7 +14,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <View /> 
+        <View/> 
       </div>
     </Router>
   );

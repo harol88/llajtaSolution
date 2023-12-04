@@ -1,16 +1,29 @@
-.recoInfo{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 15px;
+.recoInfo {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   font-size: 15px;
 }
- .recoInfo h3{
-    margin-top: 30px;
-    margin-bottom: 0;
- }
 
- .intenta{
-    margin-left: -18%;
-    width: 141%;
- }
+.recoInfo h3 {
+   margin-top: 30px;
+   margin-bottom: 0;
+}
+
+.intenta {
+   margin-left: -18%;
+   width: 141%;
+}
+
+.ajsutes{
+   font-size: 88px;
+}
+
+.otro{
+   display: grid;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   font-size: 15px;
+}

@@ -2,24 +2,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 120vh;
+  height: 90vh;
+}
+
+.contenedo-logo{
+  margin-bottom: -20px;
 }
 
 .contenedorLogin{
-  
   padding: 30px;
-  padding-top: -30px;
+  padding-top: 10px;
   padding-bottom: 60px;
-  width:520px; /* El div ocupa el 80% del ancho de su contenedor */
-  height: 680px;
-  /* Tamaño máximo del div en anchura */
+  width:420px;
+  height: 600px;
 }
 
 .DivIniSesion{
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 /* Estilos adicionales para hacer el texto responsive */
 .contenedor-Login h1 {
-  font-size: 2em; /* Puedes ajustar el tamaño del texto según tus necesidades */
+  font-size: 1em; /* Puedes ajustar el tamaño del texto según tus necesidades */
 }

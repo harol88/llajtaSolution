@@ -74,17 +74,17 @@ export default function Login() {
     }
     if (isEmail(emailInput)) {
       setEmailError(true);
-      setFormValidEmail("El correo electrónico es inválido. Por favor ingrese solo correos con el dominio de @gmail.com ");
+      setFormValidEmail("- El correo electrónico es inválido. Ingrese solo correos con el dominio de @gmail.com ");
       return;
     }
     if (!emailInput) {
       setEmailError(true);
-      setFormValidEmail("Ingrese un correo electrónico");
+      setFormValidEmail("- Ingrese un correo electrónico");
       return;
     } else {
       setFormValid("");
       setEmailError(true);
-      setFormValidEmail("Formato de correo inválido. Por favor ingrese un correo electrónico válido");
+      setFormValidEmail("- Formato de correo inválido");
       return;
     }
   }
@@ -127,19 +127,19 @@ export default function Login() {
 
     // Actualizar estados según las restricciones
     if (!tieneMayuscula) {
-      setFormValidPasswordMayusculas("La contraseña debe incluir al menos 1 letra Mayuscula");
+      setFormValidPasswordMayusculas("- La contraseña debe incluir al menos 1 letra Mayuscula");
       setPasswordErrorMayusculas(true);
     } else {
       setPasswordErrorMayusculas(false);
     }
     if (!tieneNumero) {
-      setFormValidPasswordNumero("La contraseña debe incluir al menos 1 número");
+      setFormValidPasswordNumero("- La contraseña debe incluir al menos 1 número");
       setPasswordErrorNumero(true);
     } else {
       setPasswordErrorNumero(false);
     }
     if (!tieneCaracterEspecial) {
-      setFormValidPasswordCaracter("La contraseña debe incluir al menos un caracter: -/:;&@.,?!%*.");
+      setFormValidPasswordCaracter("- La contraseña debe incluir al menos un caracter: -/:;&@.,?!%*.");
       setPasswordErrorCaracter(true);
     } else {
       setPasswordErrorCaracter(false);
@@ -149,19 +149,27 @@ export default function Login() {
     return tieneMayuscula && tieneCaracterEspecial && tieneNumero;
   };
 
+  const limpiarMensajesInput = () =>{
+    setFormValidEmail("");
+    setFormValidPassword("");
+    setFormValidPasswordCaracter("");
+    setFormValidPasswordMayusculas("");
+    setFormValidPasswordNumero("");
+  }
+
   const validarPasswordTamaño = () => {
     if (passwordInput.length > 16) {
       setPasswordError(true);
       setPasswordErrorMax(true);
       setPasswordErrorMin(false);
-      setFormValidPassword("La contraseña debe ser menor o igual a 16 caracteres.");
+      setFormValidPassword("- La contraseña debe ser menor o igual a 16 caracteres.");
       return;
     }
     if (passwordInput.length < 8) {
       setPasswordErrorMax(false);
       setPasswordError(true);
       setPasswordErrorMin(true);
-      setFormValidPassword("La contraseña debe ser mayor o igual a 8 caracteres.");
+      setFormValidPassword("- La contraseña debe ser mayor o igual a 8 caracteres.");
       return;
     }
     setPasswordErrorMax(false);
@@ -181,8 +189,7 @@ export default function Login() {
     if (!emailInput && !passwordInput) {
       setPasswordError(true);
       setEmailError(true);
-      setFormValidEmail("");
-      setFormValidPassword("");
+      limpiarMensajesInput();
       setFormValid("Campos obligatorios.Por favor ingrese un correo electrónico y contraseña");
       return;
     }
@@ -190,6 +197,7 @@ export default function Login() {
     if (emailInput && !passwordInput) {
       setPasswordError(true);
       if (emailError) {
+        limpiarMensajesInput();
         setFormValid("Por favor, verifica el correo electrónico e ingresa una contraseña")
         return;
       }
@@ -198,6 +206,7 @@ export default function Login() {
     }
 
     if (!emailInput && passwordInput){
+      limpiarMensajesInput();
       setEmailError(true);
       if(passwordError){
         setFormValid("Por favor, ingresa un correo electrónico y verifica la contraseña")
@@ -208,6 +217,7 @@ export default function Login() {
     }
 
     if (emailInput && passwordInput){
+      limpiarMensajesInput();
       if(emailError && passwordError){
         setFormValid("Por favor, verifica el correo electrónico y la contraseña")
         return;
@@ -231,6 +241,7 @@ export default function Login() {
       setSuccess("Inicio de sesión realizado exitosamente");
     } else {
       setPasswordError(true);
+      limpiarMensajesInput();
       setFormValid("Contraseña inválida. Por favor intente nuevamente");
     }
   };
@@ -392,7 +403,7 @@ export default function Login() {
     <>
       <div>
 
-        <div style={{ marginTop: "5px" }}>
+        <div style={{marginTop: "1px" }}>
           <TextField
             label="Correo electrónico"
             fullWidth
@@ -401,7 +412,7 @@ export default function Login() {
             variant="standard"
             //sx={{ width: "100%" }}
             value={emailInput}
-            size="small"
+        
             onChange={(event) => {
               setEmailInput(event.target.value);
               validarEmail();
@@ -409,7 +420,7 @@ export default function Login() {
             onKeyDown={pressEnter}
           />
           {emailError && (
-            <Typography variant="caption" color="error" style={{ marginTop: "5px" }}>
+            <Typography variant="caption" color="error" style={{ fontSize:"0.8em", marginTop: "5px" }}>
               {formValidEmail}
             </Typography>
           )}
@@ -451,30 +462,30 @@ export default function Login() {
             />
             <>
               {passwordError && (
-                <Typography variant="caption" color="error" style={{ marginTop: "5px" }}>
+                <Typography variant="caption" color="error" style={{fontSize:"0.8em", marginTop: "5px" }}>
                   {formValidPassword}
                 </Typography>
               )}
               {passwordErrorMayusculas && (
-                <Typography variant="caption" color="error" style={{ marginTop: "5px" }}>
-                  - {formValidPasswordMayusculas}
+                <Typography variant="caption" color="error" style={{fontSize:"0.8em", marginTop: "5px" }}>
+                  {formValidPasswordMayusculas}
                 </Typography>
               )}
               {passwordErrorNumero && (
-                <Typography variant="caption" color="error" style={{ marginTop: "5px" }}>
-                  - {formValidPasswordNumero}
+                <Typography variant="caption" color="error" style={{fontSize:"0.8em", marginTop: "5px" }}>
+                  {formValidPasswordNumero}
                 </Typography>
               )}
               {passwordErrorCaracter && (
-                <Typography variant="caption" color="error" style={{ marginTop: "5px" }}>
-                  - {formValidPasswordCaracter}
+                <Typography variant="caption" color="error" style={{fontSize:"0.8em", marginTop: "5px" }}>
+                  {formValidPasswordCaracter}
                 </Typography>
               )}
             </>
           </FormControl>
         </div>
 
-        <div style={{ marginTop: "15px" }}>
+        <div style={{ marginTop: "5px" }}>
           <div style={{ fontSize: "15px" }}>
             <Checkbox
               {...label}
@@ -485,7 +496,7 @@ export default function Login() {
           </div>
         </div>
 
-        <div style={{ marginTop: "15px" }}>
+        <div style={{ marginTop: "5px" }}>
           <Button
             id="botonLogin"
             variant="contained"
@@ -508,8 +519,8 @@ export default function Login() {
       <div>
         {/* Show Form Error if any */}
         {formValid && (
-          <Stack sx={{ paddingTop: "10px" }} >
-            <Alert severity="error" size="small">
+          <Stack sx={{ paddingTop: "10px"}} >
+            <Alert severity="error" style={{fontSize:"1em"}}>
               {formValid}
             </Alert>
           </Stack>
