@@ -80,6 +80,7 @@ const App2 = () => {
 
             </Menu.Item>
           </div>  
+
           <SubMenu theme='dark' className={`${location.pathname === '/platillos-tradicionales' ? 'selected-menu-item' : ''} ${'menu'}`}
 
 
@@ -120,7 +121,7 @@ const App2 = () => {
 
           </SubMenu>
 
-          <SubMenu theme='dark' className='posicionIconUser'
+          <SubMenu theme='dark' className={miToken ? 'posicionIconUser' : 'posicionIconUser2'}
             icon={<FontAwesomeIcon icon={faCircleUser} style={{fontSize: 30 }} />}
             onTitleClick={handleSubmenu2Click}
             visible={submenu2Visible}>
@@ -150,7 +151,7 @@ const App2 = () => {
           </SubMenu>
 
           {location.pathname === '/' && (
-            <Menu.Item key="Buscar" className={`${location.pathname === '/buscador' ? 'selected-menu-item' : ''} ${'posicionIconBuscador'}`}>
+            <Menu.Item key="Buscar" className={`${location.pathname === '/buscador' ? 'selected-menu-item' : ''} ${miToken ? 'posicionIconBuscador' : 'posicionIconBuscador2'}`}>
               <Link to="/buscador">
                 <Button
                   icon={<SearchOutlined />}

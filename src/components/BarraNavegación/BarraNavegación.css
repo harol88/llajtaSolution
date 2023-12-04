@@ -64,10 +64,23 @@
   top: 7px;
 }
 
+.posicionIconUser2 {
+  position: absolute;
+  right: auto;
+  left: 1100px;
+  top: 7px;
+}
+
 .posicionIconBuscador {
   position: absolute;
   right: auto;
   left: 800px;
+}
+
+.posicionIconBuscador2 {
+  position: absolute;
+  right: auto;
+  left: 970px;
 }
 
 /* ----------- CONFIGURACIÓN DE RESPONSIVE SEGÚN EL TAMAÑO DE PANTALLA  -----------*/

@@ -18,13 +18,20 @@ import LoginIcon from "@mui/icons-material/Login";
 
 export default function Login() {
   const [visible, setVisible] = useState(false);
-  const dataEmail = ''//JSON.parse(localStorage.getItem('emailSave'));
-  const recordar = localStorage.getItem('recordar');
+  const dataEmail = JSON.parse(localStorage.getItem('emailSave'));
+  const [recordar, setRecordar] = useState(localStorage.getItem('recordar'));
   const [token, setToken] = useState();
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [emailInput, setEmailInput] = useState();
 
-  //Inputs
-  const [emailInput, setEmailInput] = useState(dataEmail || '');
+  // Efecto para manejar lógica después de que el componente se monta
+  useEffect(() => {
+    // Verificar si recordar es 'si' y dataEmail está definido
+    if (recordar === 'si' && dataEmail) {
+      setEmailInput(dataEmail);
+    }
+  }, [recordar, dataEmail]);
+
   const [passwordInput, setPasswordInput] = useState();
   const [rememberMe, setRememberMe] = useState();
 
@@ -300,7 +307,7 @@ export default function Login() {
       localStorage.setItem('rol', JSON.stringify(valoresToken.rol));
       localStorage.setItem('username', JSON.stringify(valoresToken.username));
       //console.log('USernameeeeeeeeeeeeeee:', valoresToken.username);
-      localStorage.setItem('password', passwordInput)
+      //localStorage.setItem('password', passwordInput)
       const user = { username: valoresToken.email, role: valoresToken.rol, token: token };
       //console.log('Inicio de sesión como:', valoresToken.rol);
     }

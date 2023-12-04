@@ -1,49 +1,65 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 
-const ModalLogin = ({ isOpen, onClose }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+class BotonConIntentos extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      bloqueado: false,
+      intentosRestantes: 3,
+      tiempoRestante: 10, // 3 minutos en segundos
+    };
+  }
+  // ... (código previo)
 
-  const handleLogin = () => {
-    // Lógica de autenticación aquí
-    // En este ejemplo, simplemente mostramos los datos ingresados
-    console.log('Usuario:', username);
-    console.log('Contraseña:', password);
+  bloquearBoton = () => {
+    if (!this.state.bloqueado) {
+      this.setState({ intentosRestantes: this.state.intentosRestantes - 1 });
+      return;
+    }
 
-    // Cierra el modal después de iniciar sesión
-    onClose();
+    if (this.state.intentosRestantes === 0) {
+      // Después de tres intentos, bloquear el botón
+      this.setState({ bloqueado: true });
+      clearInterval(this.intervalo);
+    } else {
+      // Si aún hay intentos, iniciar el temporizador
+      this.setState({ bloqueado: false });
+
+      this.intervalo = setInterval(() => {
+        if (this.state.tiempoRestante > 0) {
+          this.setState((prevState) => ({
+            tiempoRestante: prevState.tiempoRestante - 1,
+          }));
+        } else {
+          clearInterval(this.intervalo);
+          this.setState({
+            bloqueado: false,
+            tiempoRestante: 10,// Reiniciar el tiempo restante para futuros bloqueos
+          });
+        }
+      }, 1000);
+    }
   };
 
-  return (
-    <div style={{ display: isOpen ? 'block' : 'none' }}>
+  // ... (código posterior)
+
+  render() {
+    return (
       <div>
-        <span onClick={onClose}>&times;</span>
-        <h2>Iniciar Sesión</h2>
-        <button onClick={onClose}>Cerrar Modal</button>
+        <button
+          onClick={this.bloquearBoton}
+          disabled={this.state.bloqueado}
+        >
+          Presionar Botón
+        </button>
+        <p>
+          {this.state.bloqueado
+            ? 'Botón bloqueado. Ha habido problemas.'
+            : `Intentos restantes: ${this.state.intentosRestantes}. Tiempo restante: ${this.state.tiempoRestante} segundos`}
+        </p>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
-const modalStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  background: 'white',
-  padding: '20px',
-  textAlign: 'center',
-  border: '1px solid #ccc',
-  borderRadius: '5px',
-  boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
-};
-
-const closeStyle = {
-  position: 'absolute',
-  top: '10px',
-  right: '10px',
-  fontSize: '20px',
-  cursor: 'pointer',
-};
-
-export default ModalLogin;
+export default BotonConIntentos;

@@ -12,13 +12,14 @@ const ButtonLogout = () => {
     //console.log("Antes de eliminar:", localStorage.getItem("token"), localStorage.getItem("email"));
     localStorage.removeItem('token');
     localStorage.removeItem('username');
-    localStorage.removeItem('rol ');
+    localStorage.removeItem('rol');
     localStorage.removeItem('email');
+    localStorage.removeItem('password');
     const recordar = localStorage.getItem('recordar');
     if (recordar == 'no') {
       localStorage.removeItem('email');
     }
-    console.log("Después de eliminar:", localStorage.getItem("token"), localStorage.getItem("email"));
+    //console.log("Después de eliminar:", localStorage.getItem("token"), localStorage.getItem("email"));
   };
 
   const showConfirmationModal = () => {
@@ -29,8 +30,8 @@ const ButtonLogout = () => {
       cancelText: 'Cancelar',
 
       onOk() {
-        showModal();
         removeToken();
+        showModal();
       },
       onCancel() {
 
@@ -44,7 +45,9 @@ const ButtonLogout = () => {
 
   const handleOk = () => {
     setVisible(false);
+    removeToken();
     if (location.pathname === '/') {
+      removeToken();
       window.location.reload();
     }
     //

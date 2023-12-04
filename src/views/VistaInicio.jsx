@@ -9,7 +9,7 @@ const VentanaInicio = () => {
   const location = useLocation();
 
   // Verificar si la ruta actual es "/iniciar-sesion"
-  const isLoginPage = location.pathname === '/iniciar-sesion' || location.pathname === '/recuperar';
+  const isLoginPage = location.pathname === '/iniciar-sesion' || location.pathname === '/recuperar' || location.pathname === '/recuperarContra';
 
   return (
     <div className="App">
