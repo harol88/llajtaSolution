@@ -140,53 +140,114 @@
   }
 }
 
-@media screen and (max-width:1050px) {
+@media (min-width: 1430px) and (max-width: 1648px) {
+  .posicionIconUser {
+    position: absolute;
+    right: auto;
+    left: 1050px;
+    top: 7px;
+  }
+  
+  .posicionIconUser2 {
+    position: absolute;
+    right: auto;
+    left: 1230px;
+    top: 7px;
+  }
+  
   .posicionIconBuscador {
     position: absolute;
     right: auto;
-    left: 77%;
+    left: 920px;
   }
-
+  
+  .posicionIconBuscador2 {
+    position: absolute;
+    right: auto;
+    left: 1100px;
+  }
 }
 
-@media screen and (max-width:800px) {
-  .posicionIconBuscador {
-    /* position: absolute;
+@media (min-width: 1648px) and (max-width: 1810px) {
+  .posicionIconUser {
+    position: absolute;
     right: auto;
-    left: 77%; */
+    left: 1250px;
+    top: 7px;
   }
-
+  
+  .posicionIconUser2 {
+    position: absolute;
+    right: auto;
+    left: 1430px;
+    top: 7px;
+  }
+  
+  .posicionIconBuscador {
+    position: absolute;
+    right: auto;
+    left: 1120px;
+  }
+  
+  .posicionIconBuscador2 {
+    position: absolute;
+    right: auto;
+    left: 1300px;
+  }
 }
 
-@media screen and (max-width:600px) {
-  .posicionIconBuscador {
-    /* position: absolute;
+@media (min-width: 1000px) and (max-width: 1300px) {
+  .posicionIconUser {
+    position: absolute;
     right: auto;
-    left: 77%; */
+    left: 800px;
+    top: 7px;
   }
-
+  
+  .posicionIconUser2 {
+    position: absolute;
+    right: auto;
+    left: 940px;
+    top: 7px;
+  }
+  
+  .posicionIconBuscador {
+    position: absolute;
+    right: auto;
+    left: 670px;
+  }
+  
+  .posicionIconBuscador2 {
+    position: absolute;
+    right: auto;
+    left: 810px;
+  }
 }
 
-@media screen and (max-width:500px) {
-  .posicionIconBuscador {
-    /* position: absolute;
-  right: auto;
-  left: 77%; */
-  }
-
-  .alMedio {
-    /* position: absolute;
+@media (min-width: 1810px) and (max-width: 2070px) {
+  .posicionIconUser {
+    position: absolute;
     right: auto;
-    left: 77%; */
+    left: 1350px;
+    top: 7px;
   }
-
-}
-
-@media screen and (max-width:350px) {
-  .posicionIconBuscador {
-    /* position: absolute;
+  
+  .posicionIconUser2 {
+    position: absolute;
     right: auto;
-    left: 77%; */
+    left: 1530px;
+    top: 7px;
   }
-
+  
+  .posicionIconBuscador {
+    position: absolute;
+    right: auto;
+    left: 1220px;
+  }
+  
+  .posicionIconBuscador2 {
+    position: absolute;
+    right: auto;
+    left: 1400px;
+  }
 }

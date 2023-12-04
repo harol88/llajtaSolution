@@ -129,7 +129,7 @@ export default function Login() {
 
   const validarPasswordRestricciones = (input) => {
     const tieneMayuscula = /[A-Z]/.test(input);
-    const tieneCaracterEspecial = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(input);
+    const tieneCaracterEspecial = /[-\/:;&@.,?!%*#]/.test(input);
     const tieneNumero = /\d/.test(input);
 
     // Actualizar estados según las restricciones
@@ -146,7 +146,7 @@ export default function Login() {
       setPasswordErrorNumero(false);
     }
     if (!tieneCaracterEspecial) {
-      setFormValidPasswordCaracter("- La contraseña debe incluir al menos un caracter: -/:;&@.,?!%*.");
+      setFormValidPasswordCaracter("- La contraseña debe incluir al menos un caracter: #-/:;&@.,?!%*.");
       setPasswordErrorCaracter(true);
     } else {
       setPasswordErrorCaracter(false);
