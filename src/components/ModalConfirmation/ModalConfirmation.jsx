@@ -87,7 +87,7 @@ export const ModalConfirmation = ({id, nombre}) => {
   return (
     <>
 
-      <Popover  title="Eliminar" trigger="hover" overlayStyle={overlayStyle}>
+      <Popover  content="Eliminar" trigger="hover" >
         <Button type="primary" onClick={showModal} danger>
           <DeleteOutlined />
         </Button>

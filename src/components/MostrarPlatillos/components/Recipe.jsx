@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player';
 import { useParams } from 'react-router';
 import axios from 'axios';
 import './Recipe.css';
-import { Button } from 'antd';
+import { Button, Popover } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import {ModalConfirmation} from '../../ModalConfirmation/ModalConfirmation';
 import { Link } from 'react-router-dom';
@@ -156,9 +156,11 @@ const Recipe = () => {
               </div>
             {esAdministrador===true &&            <div className='buttonn'>
               <Link to={`/editar-platillo/${id}`}>
-                <Button type="primary" onClick={() => console.log('Editar')}>
+              <Popover content="Editar">
+              <Button type="primary" onClick={() => console.log('Editar')}>
                 <EditOutlined />
                 </Button>
+              </Popover>
             </Link>
             <ModalConfirmation id={platilloData.identificador} nombre={platilloData.nombre} />
             </div>}
